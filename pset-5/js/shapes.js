@@ -44,6 +44,33 @@ const sayHello = function() {
 
 const drawRectangle = function() {
 
+  const canvas=document.getElementById("student-canvas-2")
+  const ctx=canvas.getContext("2d")
+
+  let width=prompt("Width:")
+  let length=prompt("Length:")
+  let x = prompt("X:");
+  let y = prompt("Y:");
+
+  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+
+  ctx.strokeRect(x , y , width , height);
+
+  if (x === null) {
+    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+  }
+
+  if (y === null) {
+    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+  }
+
+  if (width === null) {
+    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+  }
+
+  if (height === null) {
+    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+  }
 };
 
 /*
