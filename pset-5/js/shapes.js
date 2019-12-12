@@ -44,38 +44,51 @@ const sayHello = function() {
 
 const drawRectangle = function() {
 
-  const canvas=document.getElementById("student-canvas-2")
-  const ctx=canvas.getContext("2d")
+     let canvas = document.getElementById("student-canvas-2");
+    let ctx = canvas.getContext("2d");
 
-  let width=prompt("Width:")
-  let length=prompt("Length:")
-  let x = prompt("X:");
-  let y = prompt("Y:");
+    let width = prompt("Width:");
+    let height = prompt("Height:");
+    let x = prompt("X:");
+    let y = prompt("Y:");
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
 
-  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    ctx.strokeRect(x , y , width , height);
 
-  ctx.strokeRect(x , y , width , height);
+    if (x === null) {
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    }
 
-  if (x === null) {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  }
+    if (y === null) {
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    }
 
-  if (y === null) {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  }
+    if (width === null) {
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    }
 
-  if (width === null) {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  }
+    if (height === null) {
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    }
 
-  if (height === null) {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  }
+    if ((width + x) > canvas.width) {
+      alert("Your width must be between 1 and 1024.");
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+      width = prompt("Width:");
+      height = prompt("Height:");
+      x = prompt("X:");
+      y = prompt("Y:");
+    }
+
+    if ((height + y) > canvas.height) {
+      alert("Your width must be between 1 and 1024.");
+      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+      width = prompt("Width:");
+      height = prompt("Height:");
+      x = prompt("X:");
+      y = prompt("Y:");
+    }
 };
-
-/*
- * Exercise 3.
- */
 
 const drawColoredRectangle = function() {
 
