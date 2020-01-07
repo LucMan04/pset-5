@@ -6,6 +6,7 @@ window.onload = function() {
     document.getElementById("smile-sample").onclick = drawFaceStaff;
     document.getElementById("pyramid-sample").onclick = drawPyramidStaff;
 
+  
     document.getElementById("hello").onclick = sayHello;
     document.getElementById("rectangle").onclick = drawRectangle;
     document.getElementById("colored-rectangle").onclick = drawColoredRectangle;
@@ -14,211 +15,264 @@ window.onload = function() {
     document.getElementById("pyramid").onclick = drawPyramid;
 }
 
-// exercise 1
+/*
+ * Exercise 1.
+ */
+
+
 
 const sayHello = function() {
-  const canvas = document.getElementById("student-canvas-1");
+  const canvas = document.getElementById('student-canvas-1');
   const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 128);
+  let input;
+  let valid = true;
 
-  let text = prompt("Message:");
+  do {
+    input = (prompt("Message:"));
+    if (input == null) {
+      valid = true;
+    } else if (input.length > 50) {
+      alert("Your message is too long. Keep it under 50 characters")
+      valid = false;
+    } else if (input.length < 50) {
+      valid = true;
+    }
+  } while (valid == false);
 
-if (text === null) {
-  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-}
-
-  while (text.height > 50) {
-    alert("Your message is too long. Keep it under 50 characters.");
-    text = prompt("Message:");
+  if (input != null) {
+    ctx.font = "48px sans-serif";
+    ctx.strokeText(input, 30, 70, 994);
   }
-
-  ctx.font = "48px Sans-serif";
-  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  ctx.strokeText(text, 30 , 70, canvas.width - 30);
-
 };
 
-// exercise 2
+/*
+ * Exercise 2.
+ */
 
 const drawRectangle = function() {
+  const canvas = document.getElementById('student-canvas-2');
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 512);
+  let x;
+  let y;
+  let height;
+  let width;
+  let valid = true;
 
-    let canvas = document.getElementById("student-canvas-2");
-    let ctx = canvas.getContext("2d");
-
-    let width = prompt("Width:");
-    let height = prompt("Height:");
-    let x = prompt("X:");
-    let y = prompt("Y:");
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-
-    ctx.strokeRect(x , y , width , height);
-
-    if (x === null) {
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+  do {
+    width = prompt("Width:");
+    if (width == null) {
+      valid = true;
+    } else {
+      width = Number(width);
     }
 
-    if (y === null) {
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    height = prompt("Height:");
+    if (height == null) {
+      valid = true;
+    } else {
+      height = Number(height);
     }
 
-    if (width === null) {
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    x = prompt("X:");
+    if (x == null) {
+      valid = true;
+    } else {
+      x = Number(x);
     }
 
-    if (height === null) {
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    y = prompt("Y:");
+    if (y == null) {
+      valid = true;
+    } else {
+      y = Number(y);
     }
 
-    if ((width + x) > canvas.width) {
-      alert("Your width must be between 1 and 1024.");
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-      width = prompt("Width:");
-      height = prompt("Height:");
-      x = prompt("X:");
-      y = prompt("Y:");
-    }
+    if (width > 1024 || width < 1 && width != null && height != null && x != null && y != null) {
+      alert("Your width must be between 1 and 1024.")
+      valid = false;
+    } else if (height > 512 || height < 1 && width != null && height != null && x != null && y != null) {
+      alert("Your height must be between 1 and 512.")
+      valid = false;
+    } else if (x > 1024 || x < 1 && width != null && height != null && x != null && y != null) {
+      alert("Your x-coordinate must be between 1 and 1024.")
+      valid = false;
+    } else if (y > 512 || y < 1 && width != null && height != null && x != null && y != null) {
+      alert("Your y-coordinate must be between 1 and 512.")
+      valid = false;
+    } else if (isNaN(width) || isNaN(height) || isNaN(x) || isNaN(y)) {
+      alert("One of your values is not a number.")
+    } else if (x + width > 1024 || y + height > 512 && width != null && height != null && x != null && y != null) {
+      alert("Your rectangle won't fit on the canvas.")
+      valid = false;
+    } else {
+      valid = true;
+    };
+  } while (valid == false);
 
-    if ((height + y) > canvas.height) {
-      alert("Your width must be between 1 and 1024.");
-      ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-      width = prompt("Width:");
-      height = prompt("Height:");
-      x = prompt("X:");
-      y = prompt("Y:");
-    }
+  if (width != null && height != null && x != null && y != null) {
+    ctx.strokeRect(x, y, width, height);
+  }
 };
 
-// exercise 3
+/*
+ * Exercise 3.
+ */
 
 const drawColoredRectangle = function() {
+  const canvas = document.getElementById('student-canvas-3');
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 128);
+  let color;
+  let valid = true;
 
-  let canvas = document.getElementById("student-canvas-3");
-  let ctx = canvas.getContext("2d");
-
-  let color = prompt("Color:");
-
-if (color != null) {
+  do {
+    color = prompt("Color:");
+    if (color == null) {
+      return;
+    }
     color = color.toLowerCase();
-}
+    if (color != "green" && color != "black" && color != "blue" && color != "orange" && color != "purple" && color != "red" && color != "yellow") {
+      alert(color + " is not a supported color.")
+      valid = false;
+    } else {
+      valid = true;
+    };
+  } while (valid === false);
 
-  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-
-  switch (color) {
-      case "black":
-        ctx.fillStyle = "black";
-        ctx.fillRect(10, 10, 100, 50);
-          break;
-      case "blue":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "blue";
-       ctx.fill();
-          break;
-      case "green":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "green";
-       ctx.fill();
-          break;
-      case "orange":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "orange";
-       ctx.fill();
-          break;
-      case "purple":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "purple";
-       ctx.fill();
-         break;
-      case "red":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "red";
-       ctx.fill();
-         break;
-      case "yellow":
-       ctx.rect(10 , 10 , 100 , 50);
-       ctx.fillStyle = "yellow";
-       ctx.fill();
-         break;
-      case null:
-        ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-        break;
-      default:
-        alert(color + " is not a supported color.");
-        text = prompt("Color:");
-          break;
-  }
-
+  ctx.fillStyle = color;
+  ctx.fillRect(10, 10, 100, 50);
 };
 
-// exercise 4
+/*
+ * Exercise 4.
+ */
 
 const drawTriangle = function() {
-  let canvas = document.getElementById("student-canvas-4");
-  let ctx = canvas.getContext("2d");
+  const canvas = document.getElementById('student-canvas-4');
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 512);
+  let height;
+  let hypotenuse;
+  let base;
+  let firstSide;
+  let secondSide;
+  let thirdSide;
+  let valid = true;
 
-  var s1 = prompt("Side 1:");
-  var s2 = prompt("Side 2:");
-  var s3 = prompt("Side 3:");
-  var height = Math.min(s1, s2, s3);
-  var hypotenuse= Math.max(s1, s2, s3) ;
-  var base = Number(s1) + Number(s2) + Number(s3) - hypotenuse- height;
+  do {
+    firstSide = Number(prompt("Side 1: "))
+    if (firstSide == null) {
+      valid = true;
+    };
+    secondSide = Number(prompt("Side 2: "))
+    if (secondSide == null) {
+      valid = true;
+    };
+    thirdSide = Number(prompt("Side 3: "))
+    if (thirdSide == null) {
+      valid = true;
+    };
 
 
-  if (Math.sqrt(Math.pow(height, 2) + Math.pow(base, 2)) != Math.sqrt(Math.pow(hypotenuse, 2))) {
-    alert("That's not a right triangle.");
-    height = prompt("Side 1:");
-    base = prompt("Side 2:");
-    hypotenuse = prompt("Side 3:");
-   } else if ((base + 25) > canvas.width || (height + 25) > canvas.height) {
-      alert("Your triangle won't fit on the canvas.");
-      height = prompt("Side 1:");
-      base = prompt("Side 2:");
-      hypotenuse = prompt("Side 3:");
-  } else {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+    height = Math.min (firstSide, secondSide, thirdSide);
+    hypotenuse = Math.max (firstSide, secondSide, thirdSide);
+    base = Math.sqrt(hypotenuse**2 - height**2)
+
+    if (isNaN(firstSide) || isNaN(secondSide) || isNaN(thirdSide)) {
+      alert("One of your sides is not a number.")
+      valid = false;
+    } else if (height > 999 || base > 487) {
+      alert("Your triangle won't fit on the canvas.")
+      valid = false;
+    } else if (Math.hypot(base, height) != hypotenuse) {
+      alert("That's not a valid right triangle.");
+      valid = false;
+    } else {
+      valid = true;
+    };
+
+  } while (valid == false);
+
+  if (firstSide != null || secondSide != null || thirdSide != null) {
+    height += 25;
+    base += 25;
+
     ctx.beginPath();
-    ctx.moveTo(25 , 25);
-    ctx.lineTo(25 , 25 + height);
-    ctx.lineTo(25 + base , 25 + height);
-    ctx.lineTo(25 , 25);
+    ctx.moveTo(25, 25);
+    ctx.lineTo(25, height);
+    ctx.lineTo(base, height)
+    ctx.lineTo(25, 25);
     ctx.stroke();
   }
-
 };
 
-// exercise 5
 
 const drawFace = function() {
-  let canvas = document.getElementById("student-canvas-5");
-  let ctx = canvas.getContext("2d");
+  const canvas = document.getElementById('student-canvas-5');
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, 1024, 512);
+  let eyeRadius;
+  let mouthRadius;
+  let valid = true;
+  let headRadius;
 
-  let radius = prompt("Radius:");
+  do {
+    headRadius = prompt("Radius: ");
 
-  if (radius === null) {
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  }
+    if (headRadius === null) {
+      valid = true;
+    } else {
+      headRadius = Number(headRadius)
+    };
 
-  if (radius > canvas.height / 2) {
-    alert("Your smiley face won't fit on the canvas.");
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-    radius = prompt("Radius:");
-  } else if (radius < 32) {
-    alert("Your radius must be at least 32.");
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-    radius = prompt("Radius:");
-  } else if (radius.isNaN) {
-    alert("Your radius is not a number.");
-    ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-    radius = prompt("Radius:");
-  }
+    if (headRadius > 256 && headRadius != null) {
+      alert("Your smiley face won't fit on the canvas.")
+      valid = false;
+    } else if (headRadius < 32 && headRadius != null) {
+      alert("Your radius must be at least 32.")
+      valid = false;
+    } else if (isNaN(headRadius) && headRadius != null) {
+      alert("Your radius is not a number.")
+      valid = false;
+    } else {
+      valid = true;
+    };
+  } while (valid == false);
 
-  ctx.clearRect(0 , 0 , canvas.width , canvas.height);
-  ctx.beginPath();
-    ctx.arc(canvas.width / 2 , canvas.height / 2 , radius , 0 , Math.PI * 2);
-    ctx.moveTo((canvas.width / 2 - 0.4 * radius + 0.15 * radius), (canvas.height / 2 - 0.4 * radius));
-    ctx.arc((canvas.width / 2 - 0.4 * radius), (canvas.height / 2 - 0.4 * radius) , (0.15 * radius) , 0 , Math.PI * 2);
-    ctx.moveTo((canvas.width / 2 + radius * 0.4 + radius * 0.15) , (canvas.height / 2 - 0.4 * radius));
-    ctx.arc(canvas.width / 2 + 0.4 * radius , canvas.height / 2 - 0.4 * radius, 0.15 * radius , 0 , Math.PI * 2);
-    ctx.moveTo((canvas.width / 2 + 0.7 * radius) , (canvas.height / 2));
-    ctx.arc((canvas.width / 2) , (canvas.height / 2) , (0.7 * radius) , 0 , Math.PI);
+  if (headRadius != null) {
+    eyeRadius = headRadius * 0.15;
+    mouthRadius = headRadius * 0.7;
+    let centerPointX = 1024 / 2;
+    let centerPointY = 512 / 2;
+
+    ctx.beginPath();
+    ctx.arc(centerPointX, centerPointY, headRadius, 0, 2 * Math.PI);
     ctx.stroke();
+    ctx.closePath();
 
+    ctx.beginPath();
+    ctx.arc(centerPointX, centerPointY, mouthRadius, 0, Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+
+    let eyeCenterPointX = centerPointX + headRadius * 0.4;
+    let eyeCenterPointY = centerPointY - headRadius * 0.4;
+
+    ctx.beginPath();
+    ctx.arc(eyeCenterPointX, eyeCenterPointY, eyeRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+
+    eyeCenterPointX = centerPointX - headRadius * 0.4;
+
+    ctx.beginPath();
+    ctx.arc(eyeCenterPointX, eyeCenterPointY, eyeRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+  };
+};
+
+const drawPyramid = function() {
 };
